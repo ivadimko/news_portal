@@ -10,7 +10,7 @@ const htmlPlugin = new HtmlWebpackPlugin({
   template: "./src/index.html",
   filename: "./index.html"
 });
-const cssPlugin = new ExtractTextPlugin('css/[name].css');
+const cssPlugin = new ExtractTextPlugin('css/[name].[hash].css');
 const modernizrPlugin = new ModernizrWebpackPlugin(modernizrConfig);
 
 const scssUtilsPath = 'src/styles/utils';
@@ -66,11 +66,30 @@ module.exports = {
       }
     ]
   },
+  // entry: './src/index.js',
+  output: {
+    // path: path.resolve(__dirname, 'dist'),
+    filename: 'js/[name].[chunkhash].js'
+  },
   plugins: [ htmlPlugin, cssPlugin, modernizrPlugin ],
   resolve: {
     extensions: [ ".js", ".jsx" ],
     alias: {
       '@': path.join(__dirname, 'src')
     }
-  }
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all'
+        }
+      }
+    },
+    runtimeChunk: {
+      name: 'manifest',
+    }
+  },
 };

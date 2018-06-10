@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production",
+    "build": "rm -rf dist && webpack --mode production && git add dist",
     "lint-fix": "./node_modules/.bin/stylelint src/**/*.scss --fix && ./node_modules/.bin/eslint src --fix",
     "deploy": "git subtree push --prefix dist origin gh-pages",
     "precommit": "lint-staged"
