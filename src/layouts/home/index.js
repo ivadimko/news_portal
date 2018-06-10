@@ -1,4 +1,3 @@
-import './_home.scss';
-import Home from './home';
+import Home from './Home';
 
 export default Home;

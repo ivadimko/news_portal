@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import ArticlesList from '@/containers/articles-list';
+import './_home.scss';
 
 export default class Home extends Component {
   render() {
-    return <div className={'page'}>
+    return <div className="page">
       <div className="grid-container">
         <div className="grid-x grid-margin-x">
           <div className="cell">

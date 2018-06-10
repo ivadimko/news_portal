@@ -1,4 +1,3 @@
-import './_single-comment.scss';
-import SingleComment from './single-comment';
+import SingleComment from './SingleComment';
 
 export default SingleComment;

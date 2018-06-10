@@ -1,4 +1,3 @@
-import './_single-article.scss';
-import SingleArticle from './single-article';
+import SingleArticle from './SingleArticle';
 
 export default SingleArticle;

@@ -1,4 +1,3 @@
-import './_articles-list.scss';
-import ArticlesList from './articles-list';
+import ArticlesList from './ArticlesList';
 
 export default ArticlesList;

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import './_button.scss';
 
 export default class Button extends Component {
   static propTypes = {
@@ -14,7 +16,7 @@ export default class Button extends Component {
     const {
       callback, activeText, isActive, text, className,
     } = { ...this.props };
-    return <button className={`button ${className}`} onClick={callback}>
+    return <button className={classNames(['button', className])} onClick={callback}>
       <span>
         {activeText && isActive ? activeText : text}
       </span>

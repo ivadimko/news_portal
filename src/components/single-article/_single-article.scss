@@ -1,8 +1,5 @@
 .article {
 	@include box-shadow;
-	.is-hidden {
-		display: none;
-	}
 	&__info {
 		display: flex;
 		align-items: baseline;

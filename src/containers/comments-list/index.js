@@ -1,4 +1,3 @@
-import './_comments-list.scss';
-import CommentsList from './comments-list';
+import CommentsList from './CommentsList';
 
 export default CommentsList;
