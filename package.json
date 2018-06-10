@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
     "lint-fix": "./node_modules/.bin/stylelint src/**/*.scss --fix && ./node_modules/.bin/eslint src --fix",
-    "deploy": "gh-pages-deploy -- 'deploy static content'",
+    "deploy": "git subtree push --prefix dist origin gh-pages",
     "precommit": "lint-staged"
   },
   "devDependencies": {
@@ -56,13 +56,18 @@
     "webfontloader": "^1.6.28"
   },
   "lint-staged": {
-    "*.scss": [
-      "stylelint --fix",
-      "git add"
-    ],
-    "*.js": [
-      "eslint --fix",
-      "git add"
+    "linters": {
+      "*.scss": [
+        "stylelint --fix",
+        "git add"
+      ],
+      "*.js": [
+        "eslint --fix",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "**/dist/**/*"
     ]
   }
 }
