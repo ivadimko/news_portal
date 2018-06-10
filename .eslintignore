@@ -1,2 +1,2 @@
-src/scripts/lib
+dist/
 webpack.config.js
