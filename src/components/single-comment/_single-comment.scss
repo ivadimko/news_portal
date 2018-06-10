@@ -1,0 +1,16 @@
+.comment {
+	&__top {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+
+		margin-bottom: $indent-m;
+
+		opacity: 0.66;
+	}
+	&__body {
+		p {
+			@include text;
+		}
+	}
+}

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
+import Home from '@/layouts/home/index';
 
 export default class App extends Component {
-  constructor() {
-    super();
-    this.message = 'Hello React';
-  }
   render() {
-    return <h1>{this.message}</h1>;
+    return <Home />;
   }
 }

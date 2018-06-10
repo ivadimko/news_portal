@@ -1,0 +1,57 @@
+.button {
+	font-size: 12px;
+
+	cursor: pointer;
+	white-space: nowrap;
+
+	color: $c-text;
+	&_main {
+		position: relative;
+		z-index: $z-index-default;
+
+		display: flex;
+		overflow: hidden;
+		align-items: center;
+		justify-content: center;
+
+		min-width: 180px;
+		padding: $indent-xs $indent-m;
+
+		border: 1px solid $c-text;
+		border-radius: 3px;
+		background-color: $c-white;
+
+		@include hover(color, $c-white);
+
+		span {
+			transition: transform $duration $easing;
+		}
+		&::before {
+			z-index: $z-index-under;
+
+			content: "";
+			transition: transform $duration $easing;
+			transform: scaleX(0) skew(-89deg);
+			transform-origin: left top;
+
+			background-color: $c-text;
+
+			@include covers-parent;
+		}
+	}
+	&_sub {
+		span {
+			@include hover(opacity, 0.66);
+		}
+	}
+	&:hover {
+		span {
+			transition-delay: 0.15s;
+			transform: translateX(6px);
+		}
+
+		&::before {
+			transform: none;
+		}
+	}
+}

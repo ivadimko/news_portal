@@ -1,0 +1,14 @@
+.comments-list {
+	width: 90%;
+	margin-left: auto;
+	&__item {
+		padding: $indent-xl;
+
+		border-radius: 5px;
+
+		@include box-shadow;
+		&:not(:last-child) {
+			margin-bottom: $indent-m;
+		}
+	}
+}

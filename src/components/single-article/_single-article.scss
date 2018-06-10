@@ -1,0 +1,54 @@
+.article {
+	@include box-shadow;
+	.is-hidden {
+		display: none;
+	}
+	&__info {
+		display: flex;
+		align-items: baseline;
+		.button {
+			margin-left: auto;
+		}
+		.author {
+			margin-right: $indent-xs;
+		}
+		.author,
+		.date {
+			opacity: 0.66;
+		}
+	}
+
+	&__body,
+	&__footer {
+		padding: $indent-l 0;
+	}
+	&__body {
+		p {
+			text-indent: 2em;
+
+			@include text;
+		}
+	}
+
+	&__footer,
+	&__comments-toggle {
+		display: flex;
+		align-items: baseline;
+	}
+
+	&__comments-toggle {
+		margin-right: auto;
+		p {
+			margin-right: $text-indent;
+		}
+	}
+
+	&__footer {
+		justify-content: space-between;
+		.date {
+			margin-right: $indent-l;
+
+			opacity: 0.66;
+		}
+	}
+}

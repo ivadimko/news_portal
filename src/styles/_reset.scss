@@ -8,6 +8,8 @@
 }
 
 body {
+	font-family: $font-family_sans-serif;
+
 	background: $c-gray-light;
 
 	@include webkit-smoothscroll;

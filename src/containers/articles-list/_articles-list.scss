@@ -1,0 +1,11 @@
+.articles-list {
+	&__item {
+		padding: $indent-l;
+
+		border-radius: 5px;
+		background-color: $c-white;
+		&:not(:last-child) {
+			margin-bottom: $indent-m;
+		}
+	}
+}

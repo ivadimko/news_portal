@@ -10,7 +10,8 @@ module.exports = {
     "no-param-reassign": 0,
     "no-new": 0,
     "import/no-unresolved": "off",
-    "import/extensions": "never"
+    "import/extensions": "never",
+    "class-methods-use-this": ["error", { "exceptMethods": ["render"] }]
   },
   "settings": {
     "import/resolver": {

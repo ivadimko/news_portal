@@ -1,0 +1,9 @@
+.page {
+	&__title {
+		padding: $indent-m 0;
+    margin-bottom: $indent-xl;
+		h1 {
+			text-align: center;
+		}
+	}
+}
