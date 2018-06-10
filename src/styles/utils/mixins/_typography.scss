@@ -1,0 +1,96 @@
+
+@mixin main-heading {
+	font-family: $font-family_serif;
+	font-weight: $font-weight_regular;
+	line-height: 1em;
+}
+
+@mixin heading {
+	font-family: $font-family_sans-serif;
+	font-weight: $font-weight_extra-bold;
+	line-height: $line-height_heading;
+}
+
+@mixin text {
+	font-family: $font-family_sans-serif;
+	font-weight: $font-weight_regular;
+	line-height: $line-height_text;
+}
+
+@mixin type-small-uppercase {
+	font-size: 10px;
+	font-weight: $font-weight_heavier;
+	line-height: 1.3em;
+
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+}
+
+
+@mixin h1 {
+	font-size: 7vw;
+
+	letter-spacing: -4px;
+
+	@include main-heading;
+	@include if-bigger-than(xl) {
+		font-size: 90px;
+	}
+	@include if-smaller-than(s) {
+		font-size: 50px;
+	}
+}
+
+@mixin h2 {
+	font-size: 20px;
+
+	letter-spacing: 5px;
+	text-transform: uppercase;
+
+	@include heading;
+	@include if-smaller-than(s) {
+		font-size: 16px;
+	}
+}
+
+@mixin h3 {
+	font-size: 14px;
+
+	letter-spacing: 2px;
+	text-transform: uppercase;
+
+	@include heading;
+	@include if-smaller-than(s) {
+		font-size: 12px;
+	}
+}
+
+@mixin h4 {
+	font-size: 28px;
+	font-weight: 300;
+	line-height: 1.9em;
+
+	@include if-smaller-than(s) {
+		font-size: 21px;
+	}
+}
+
+@mixin small-uppercase {
+	font-size: 12px;
+	line-height: 1.3em;
+
+	letter-spacing: 10px;
+	text-transform: uppercase;
+}
+
+@mixin regular-text {
+	font-size: 14px;
+
+	@include text;
+}
+
+@mixin button-text {
+	font-size: 14px;
+	font-weight: $font-weight_bold;
+	line-height: 1.3em;
+}

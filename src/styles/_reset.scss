@@ -1,0 +1,137 @@
+// There are styles for HTML tags without classes, e.g. <a>, <html>
+// and also styles for elements that doesn't deserve a separate SCSS file like .g-recaptcha
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: $c-gray-light;
+
+	@include webkit-smoothscroll;
+
+	::selection {
+		color: $c-white;
+		background: $c-brand;
+	}
+}
+
+a {
+	transition: color $duration $easing;
+	text-decoration: none;
+
+	color: $c-text;
+
+	&:hover {
+		text-decoration: none;
+	}
+
+	&:focus {
+		text-decoration: none;
+
+		outline: none;
+	}
+}
+
+li:focus {
+	outline: none;
+}
+
+img {
+	display: inline-block;
+
+	border: none;
+	outline: none;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+ul {
+	margin-bottom: 0;
+
+	list-style: none;
+}
+
+ol {
+	list-style-position: inside;
+}
+
+b {
+	font-weight: $font-weight_bold;
+}
+
+p {
+	margin: 0;
+}
+
+blockquote {
+	font-weight: $font-weight_semibold;
+
+	margin: 30px 0;
+	padding-left: 50px;
+
+	border-left: 1px solid $c-brand;
+}
+
+address {
+	font-style: normal;
+}
+
+figure {
+	margin: 0;
+}
+
+// forms
+input,
+textarea,
+button,
+select {
+	border: none;
+	background: transparent;
+	box-shadow: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+textarea {
+	resize: none;
+	vertical-align: top;
+}
+
+label {
+	margin-bottom: 0;
+}
+
+fieldset {
+	border: none;
+}
+
+input,
+textarea,
+button {
+	&:focus {
+		outline: none;
+	}
+}
+
+select {
+	appearance: none;
+
+	&::-ms-expand {
+		display: none;
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.layers {
+	@include layers;
+}

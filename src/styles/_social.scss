@@ -1,0 +1,23 @@
+.social {
+	font-size: 20px;
+
+	display: flex;
+
+	margin-left: -2rem;
+
+	li {
+		margin-left: 2rem;
+	}
+
+	[class^="icon-"] {
+		transition: color $duration $easing;
+	}
+
+	@each $icon, $color in $c-social {
+		.icon-#{$icon} {
+			&:hover {
+				color: $color;
+			}
+		}
+	}
+}

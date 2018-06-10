@@ -1,0 +1,12 @@
+@import "reset";
+@import "~foundation-sites/scss/foundation";
+
+@include foundation-xy-grid-classes;
+@include foundation-flex-classes;
+
+@import "typography";
+@import "social";
+
+h1 {
+	@include h1();
+}
