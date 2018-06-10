@@ -5,6 +5,9 @@
   "repository": "git@github.com:ivadimko/react-app.git",
   "author": "vadimilchenko <v.ilchenko@8ways.ch>",
   "license": "MIT",
+  "gh-pages-deploy": {
+    "staticpath": "dist"
+  },
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
