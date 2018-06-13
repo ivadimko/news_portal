@@ -14,7 +14,7 @@ export default class Date extends Component {
   }
 
   render() {
-    const { date, format, className } = { ...this.props };
+    const { date, format, className } = this.props;
     return <time className={className} dateTime={moment(date).format('YYYY[-]MM[-]DD')}>{moment(date).format(format)}</time>;
   }
 }

@@ -27,7 +27,7 @@
 			transition: transform $duration $easing;
 		}
 		&::before {
-			z-index: $z-index-under;
+			z-index: $z-index-below;
 
 			content: "";
 			transition: transform $duration $easing;
