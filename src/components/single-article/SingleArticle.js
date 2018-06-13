@@ -106,15 +106,23 @@ export default class SingleArticle extends Component {
     </article>;
   }
 
-  calculateMinHeight = ({ previewRows } = this.props, { isOpened } = this.state) => {
+  calculateMinHeight = () => {
+    const { previewRows } = this.props;
+    const { isOpened } = this.state;
     const indentTop = parseInt(helper.getStyle(this.text, 'padding-top'), 10);
     const indentBottom = parseInt(helper.getStyle(this.text, 'padding-bottom'), 10);
     const lineHeight = parseInt(helper.getStyle(this.text, 'line-height'), 10);
+
     const minHeight = isOpened ? Infinity : indentBottom + indentTop + (previewRows * lineHeight);
     shave(this.text, minHeight);
   }
 
   componentDidMount() {
     this.calculateMinHeight();
+    window.addEventListener('resize', this.calculateMinHeight);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.calculateMinHeight);
   }
 }
