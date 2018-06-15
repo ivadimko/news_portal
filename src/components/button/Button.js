@@ -15,7 +15,7 @@ export default class Button extends Component {
   render() {
     const {
       callback, activeText, isActive, text, className,
-    } = { ...this.props };
+    } = this.props;
     return <button className={classNames(['button', className])} onClick={callback}>
       <span>
         {activeText && isActive ? activeText : text}

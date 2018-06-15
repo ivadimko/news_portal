@@ -5,14 +5,14 @@ import './_articles-list.scss';
 import list from './articles-list.json';
 
 export default class ArticlesList extends Component {
-  constructor() {
-    super();
+  state = {
     // fetch articles from 3rd party api
-    this.list = list;
+    articlesList: list,
   }
   render() {
+    const { articlesList } = this.state;
     return <div className="articles-list">
-      {this.list.map(article => <SingleArticle key={article.id} className="articles-list__item" content={article}/>)}
+      {articlesList.map(article => <SingleArticle key={article.id} className="articles-list__item" content={article}/>)}
     </div>;
   }
 }

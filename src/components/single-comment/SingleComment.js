@@ -11,8 +11,8 @@ export default class Comments extends Component {
   }
 
   render() {
-    const { className, content } = { ...this.props };
-    const { author, text, date } = { ...content };
+    const { className, content } = this.props;
+    const { author, text, date } = content;
     return <div className={classNames(['comment', className])}>
       <div className="comment__top">
         <p>{author}</p>

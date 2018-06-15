@@ -43,7 +43,7 @@
 
 @mixin image-cover {
   position: relative;
-  z-index: 1;
+  z-index: $z-index-above;
   overflow: hidden;
   height: 1000px;
   width: calc(100% + #{$indent-s});
@@ -92,7 +92,7 @@
     right: 4px;
     bottom: 0;
     height: 4px;
-    z-index: -1;
+    z-index: $z-index-below;
     content: '';
     transform: scaleX(0);
     transition: transform $duration $easing;
@@ -148,6 +148,7 @@
 }
 
 @mixin button-reset {
+  $_outline-color: transparent;
   border: none;
   outline: none;
   background: none;
@@ -155,7 +156,7 @@
   box-sizing: border-box;
   -webkit-appearance: none;
   &:focus {
-    outline-color: transparent;
+    outline-color: $_outline-color;
     outline-style: none;
     box-shadow: none;
   }
