@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Context from '@/helpers/context';
 import classNames from 'classnames';
 import shave from 'shave';
 import helper from '@/scripts/utils/helper';
 import Date from '@/components/date';
 import CommentsList from '@/containers/comments-list';
 import Button from '@/components/button';
+import withModal from '@/components/hoc/with-modal';
 import './_single-article.scss';
 
-export default class SingleArticle extends Component {
+class SingleArticle extends Component {
   constructor() {
     super();
     // refs
@@ -25,10 +27,16 @@ export default class SingleArticle extends Component {
     previewRows: PropTypes.number,
     content: PropTypes.object.isRequired,
     className: PropTypes.string,
+    extraButton: PropTypes.element,
+    mainRef: PropTypes.func,
+    headingRef: PropTypes.func,
   };
 
   static defaultProps = {
     previewRows: 2,
+    extraButton: null,
+    mainRef: () => {},
+    headingRef: () => {},
   }
 
   toggleOpen = () => {
@@ -45,15 +53,18 @@ export default class SingleArticle extends Component {
   };
 
   render() {
-    const { className, content } = this.props;
+    const {
+      className, content, extraButton, mainRef, headingRef,
+    } = this.props;
     const {
       title, author, date, text, comments,
     } = content;
     const { isOpened, isCommentsShown } = this.state;
+
     return (
-      <article className={classNames(['article', className])}>
+      <article ref={mainRef} className={classNames(['article', className])}>
         <header className="article__top">
-          <h4 title={title}>{title}</h4>
+          <h4 ref={headingRef} title={title}>{title}</h4>
           <div className="article__info">
             <p className="author">{author}</p>
             <Date className="date" date={date} format={'DD[.]MM[.]YYYY'}/>
@@ -64,6 +75,10 @@ export default class SingleArticle extends Component {
               isActive={isOpened}
               callback={this.toggleOpen}
             />
+            <Context.Consumer>
+              {({ unsafeMode }) => unsafeMode && extraButton}
+            </Context.Consumer>
+
           </div>
         </header>
         <div className="article__main">
@@ -129,3 +144,8 @@ export default class SingleArticle extends Component {
     window.removeEventListener('resize', this.calculateMinHeight);
   }
 }
+
+export default {
+  default: SingleArticle,
+  withModal: withModal(SingleArticle),
+};

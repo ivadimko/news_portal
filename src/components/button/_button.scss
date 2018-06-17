@@ -39,11 +39,23 @@
 			@include covers-parent;
 		}
 	}
+  &_icon{
+    font-size: 20px;
+    @include hover(opacity, .66);
+  }
+
 	&_sub {
-		span {
-			@include hover(opacity, 0.66);
-		}
+    @include hover(opacity, 0.66);
 	}
+
+  &_warning {
+    color: $c-error;
+  }
+
+  &_safe {
+    color: $c-success
+  }
+
 	&:hover {
 		span {
 			transition-delay: 0.15s;

@@ -68,7 +68,7 @@
 @mixin h4 {
 	font-size: 28px;
 	font-weight: 300;
-	line-height: 1.9em;
+	line-height: 1.8em;
 
 	@include if-smaller-than(s) {
 		font-size: 21px;

@@ -2,8 +2,24 @@
 	&__title {
 		padding: $indent-m 0;
     margin-bottom: $indent-xl;
+    display: flex;
+    justify-content: space-between;
+    .react-toggle--checked .react-toggle-track {
+      &, &:hover{
+        &:not(.disabled){
+          background-color: $c-error;
+        }
+      }
+    }
 		h1 {
 			text-align: center;
 		}
 	}
+  &__toggle{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+    font-size: 20px;
+  }
 }

@@ -28,7 +28,6 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        exclude: /(node_modules)/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -63,7 +62,17 @@ module.exports = {
             },
           ]
         })
-      }
+      },
+      {
+        test: /\.(ttf|woff|eot|svg)$/,
+        include: path.resolve(__dirname, 'src/icomoon'),
+        loader: 'file-loader',
+        options: {
+          name: 'icomoon/[name].[ext]',
+          outputPath: './fonts',
+          publicPath: '../fonts'
+        },
+      },
     ]
   },
   // entry: './src/index.js',
