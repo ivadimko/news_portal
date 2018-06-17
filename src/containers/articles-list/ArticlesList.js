@@ -9,10 +9,15 @@ export default class ArticlesList extends Component {
     // fetch articles from 3rd party api
     articlesList: list,
   }
+
   render() {
     const { articlesList } = this.state;
-    return <div className="articles-list">
-      {articlesList.map(article => <SingleArticle key={article.id} className="articles-list__item" content={article}/>)}
-    </div>;
+    return (
+      <div className="articles-list">
+        {articlesList.map(article => <SingleArticle key={article.id}
+                                                    className="articles-list__item"
+                                                    content={article}/>)}
+      </div>
+    );
   }
 }
