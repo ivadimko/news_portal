@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <Provider store={store}>
       <App/>
     </Provider>,
-    document.querySelector('#app'),
+    main,
   );
   Modal.setAppElement(main);
 });
