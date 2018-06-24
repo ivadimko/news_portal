@@ -2,7 +2,7 @@ import React, { Fragment, Component } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Button from '@/components/button';
+import Button from '@/components/Button';
 import './_with-modal.scss';
 
 export default function withModal(WrappedComponent) {
@@ -10,7 +10,6 @@ export default function withModal(WrappedComponent) {
     constructor() {
       super();
       // refs
-      this.mainElement = null;
       this.headingElement = null;
 
       // state
@@ -28,6 +27,7 @@ export default function withModal(WrappedComponent) {
       contentElement: PropTypes.element,
       className: PropTypes.string,
       acceptCallback: PropTypes.func,
+      acceptCallbackParams: PropTypes.object.isRequired,
     }
 
     static defaultProps = {
@@ -45,7 +45,14 @@ export default function withModal(WrappedComponent) {
     render() {
       const { isModalOpened, isHidden } = this.state;
       const {
-        modalHeading, acceptText, declineText, className, toggleButton, acceptCallback,
+        modalHeading,
+        acceptText,
+        declineText,
+        className,
+        toggleButton,
+        acceptCallback,
+        acceptCallbackParams,
+        contentElement,
       } = this.props;
 
       return (
@@ -55,7 +62,6 @@ export default function withModal(WrappedComponent) {
               className="modal"
               isOpen={isModalOpened}
               contentLabel="Approve Dialog"
-              appElement={this.mainElement}
               closeTimeoutMS={300}
               role="dialog"
               onRequestClose={this.toggleModal}>
@@ -66,7 +72,7 @@ export default function withModal(WrappedComponent) {
                 <h5 className="modal__sub-heading">{this.headingElement.innerText}</h5>
               )}
 
-              <div className="modal__content">{this.contentElement && this.contentElement}</div>
+              <div className="modal__content">{contentElement && contentElement}</div>
 
               <div className="modal__actions actions">
                 <Button
@@ -78,15 +84,15 @@ export default function withModal(WrappedComponent) {
                 <Button
                   className="button_main button_main button_warning"
                   text={acceptText}
-                  callback={acceptCallback.bind(this)}
+                  callback={() => {
+                    acceptCallback({ ...acceptCallbackParams, callback: this.toggleModal });
+                  }}
                 />
               </div>
             </ReactModal>
             <WrappedComponent
               {...this.props}
-              mainRef={(el) => { this.mainElement = el; }}
               headingRef={(el) => { this.headingElement = el; }}
-              contentRef={(el) => { this.contentElement = el; }}
               className={classNames([className, 'with-modal'])}
               extraButton={
                 <Button
