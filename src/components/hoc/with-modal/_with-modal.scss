@@ -1,0 +1,44 @@
+.modal {
+  @include box-shadow;
+
+  position: absolute;
+  top: 20%;
+  right: 20%;
+  left: 20%;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  max-height: calc(100vh - 40%);
+  padding: 50px;
+
+  outline: none;
+  background-color: $c-white;
+  &__heading,
+  &__sub-heading {
+
+    text-align: center;
+  }
+  &__heading {
+    margin-bottom: $indent-s;
+  }
+  &__content,
+  &__sub-title {
+    margin-bottom: $indent-xl;
+  }
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.ReactModalPortal .ReactModal__Overlay {
+  transition: opacity $duration $easing;
+  opacity: 0;
+  &--after-open {
+    opacity: 1;
+  }
+  &--before-close {
+    opacity: 0;
+  }
+}

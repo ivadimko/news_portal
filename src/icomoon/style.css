@@ -1,0 +1,134 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?n9zgfh');
+  src:  url('fonts/icomoon.eot?n9zgfh#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?n9zgfh') format('truetype'),
+    url('fonts/icomoon.woff?n9zgfh') format('woff'),
+    url('fonts/icomoon.svg?n9zgfh#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-allow:before {
+  content: "\e923";
+}
+.icon-loading:before {
+  content: "\e922";
+}
+.icon-tooltip-remove-full:before {
+  content: "\e921";
+}
+.icon-tooltip-remove:before {
+  content: "\e920";
+}
+.icon-check:before {
+  content: "\e91f";
+}
+.icon-arrow:before {
+  content: "\e900";
+}
+.icon-twitter:before {
+  content: "\e901";
+}
+.icon-close:before {
+  content: "\e902";
+}
+.icon-youtube:before {
+  content: "\e903";
+}
+.icon-triangle:before {
+  content: "\e904";
+}
+.icon-big-arrow:before {
+  content: "\e905";
+}
+.icon-arrow-down:before {
+  content: "\e906";
+}
+.icon-menu:before {
+  content: "\e907";
+}
+.icon-facebook:before {
+  content: "\e908";
+}
+.icon-search:before {
+  content: "\e909";
+}
+.icon-logo:before {
+  content: "\e90a";
+}
+.icon-linkedin:before {
+  content: "\e90b";
+}
+.icon-location:before {
+  content: "\e90c";
+}
+.icon-calendar:before {
+  content: "\e90d";
+}
+.icon-parallax:before {
+  content: "\e90e";
+}
+.icon-mail:before {
+  content: "\e90f";
+}
+.icon-google-plus:before {
+  content: "\e910";
+}
+.icon-messenger:before {
+  content: "\e911";
+}
+.icon-message:before {
+  content: "\e912";
+}
+.icon-question:before {
+  content: "\e913";
+}
+.icon-money:before {
+  content: "\e914";
+}
+.icon-trade:before {
+  content: "\e915";
+}
+.icon-trade-competitiveness:before {
+  content: "\e916";
+}
+.icon-investment:before {
+  content: "\e917";
+}
+.icon-sustainability:before {
+  content: "\e918";
+}
+.icon-market-access:before {
+  content: "\e919";
+}
+.icon-procurement:before {
+  content: "\e91a";
+}
+.icon-user:before {
+  content: "\e91b";
+}
+.icon-WTO-logo:before {
+  content: "\e91c";
+}
+.icon-UN-logo:before {
+  content: "\e91d";
+}
+.icon-ITC-logo:before {
+  content: "\e91e";
+}
