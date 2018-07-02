@@ -1,18 +1,16 @@
 import { connect } from 'react-redux';
-import { addNewArticle, getArticlesList } from '@/reducers/articles';
-import ListArticles from '../layout/ListArticles';
+import { getUserDetails } from '@/reducers/user';
+import App from '../layout/App';
 
 const mapStateToProps = state => ({
   ...state.user,
-  ...state.articles,
 });
 
 const mapDispatchToProps = {
-  addNewArticle,
-  getArticlesList,
+  getUserDetails,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListArticles);
+)(App);

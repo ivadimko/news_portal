@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { removeComment } from '@/reducers/articles';
-import SingleArticle from '../layout/SingleComment';
+import SingleComment from '../layout/SingleComment';
 
 const mapStateToProps = state => ({
   ...state.app,
@@ -13,4 +13,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SingleArticle.withModal);
+)(SingleComment.withModal);

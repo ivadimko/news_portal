@@ -1,14 +1,37 @@
 import uid from 'uid';
 import moment from 'moment';
-import articlesList from '@/data/articles-list.json';
-import { REMOVE_ARTICLE, REMOVE_COMMENT, ADD_ARTICLE } from '@/store/actions';
 import { List } from 'immutable';
+import api from '@/config/api';
+
+import {
+  REMOVE_COMMENT,
+  GET_ARTICLES_LIST,
+  GET_ARTICLES_LIST_ERROR,
+  GET_ARTICLES_LIST_SUCCESS,
+  REMOVE_ARTICLE,
+  ADD_ARTICLE,
+} from '@/store/actions';
 
 const initialState = {
-  articles: List(articlesList),
+  articles: [],
 };
 
 const actionHandlers = {
+  [GET_ARTICLES_LIST_SUCCESS]: (state, { payload }) => { // eslint-disable-line no-unused-vars
+    const { data } = payload;
+    return ({
+      ...state,
+      articles: List(data.items),
+    });
+  },
+  [GET_ARTICLES_LIST_ERROR]: (state, { payload }) => { // eslint-disable-line no-unused-vars
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
+      ...state,
+    };
+  },
   [ADD_ARTICLE]: (state, action) => {
     const { title, text } = action;
     return ({
@@ -45,6 +68,18 @@ const actionHandlers = {
     });
   },
 };
+
+
+export const getArticlesList = () => ({
+  type: GET_ARTICLES_LIST,
+  apiURI: {
+    url: `${api.host}/article/get`,
+    params: {
+      method: 'GET',
+      headers: api.headers,
+    },
+  },
+});
 
 export const removeArticle = ({ id }) => ({
   type: REMOVE_ARTICLE,

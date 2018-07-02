@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Date from '@/components/Date/index';
 import withModal from '@/components/hoc/with-modal/index';
 import '../_SingleComment.scss';
 
@@ -9,16 +8,15 @@ const SingleComment = (props) => {
   const {
     className, content, headingRef, extraButton, unsafeMode,
   } = props;
-  const { author, text, date } = content;
+  const { author, comment } = content;
   return (
     <div className={classNames(['comment', className])}>
       <div ref={headingRef} className="comment__top">
-        <p>{author}</p>
-        <Date date={date} format={'DD[.]MM[.]YYYY'}/>
+        {!!author.length && <p>{author[0].name}</p>}
         {unsafeMode && extraButton}
       </div>
       <div className="comment__body">
-        <p>{text}</p>
+        <p>{comment}</p>
       </div>
     </div>
   );

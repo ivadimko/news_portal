@@ -56,7 +56,7 @@ class SingleArticle extends Component {
       className, content, extraButton, headingRef, unsafeMode,
     } = this.props;
     const {
-      title, author, date, text, comments,
+      title, author, createAt, text, comments,
     } = content;
     const { isOpened, isCommentsShown } = this.state;
 
@@ -65,8 +65,8 @@ class SingleArticle extends Component {
         <header className="article__top">
           <h4 ref={headingRef} title={title}>{title}</h4>
           <div className="article__info">
-            <p className="author">{author}</p>
-            <Date className="date" date={date} format={'DD[.]MM[.]YYYY'}/>
+            {!!author.length && <p className="author">{author[0].name}</p>}
+            <Date className="date" date={createAt} format={'DD[.]MM[.]YYYY'}/>
             <Button
               activeText="Hide Content"
               className="button_main"
@@ -84,7 +84,7 @@ class SingleArticle extends Component {
           </div>
           {isOpened &&
           <footer className="article__footer">
-            <Date className="date" date={date}/>
+            <Date className="date" date={createAt}/>
             {!!comments.length &&
             <div className="article__comments-toggle">
               <p>
@@ -114,7 +114,7 @@ class SingleArticle extends Component {
         </div>
         {isOpened && isCommentsShown &&
         <div className="article__comments">
-          <ListComments list={comments} articleId={content.id}/>
+          <ListComments list={comments} articleId={content._id}/>
         </div>
         }
       </article>

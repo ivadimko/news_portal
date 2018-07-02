@@ -11,7 +11,10 @@ module.exports = {
     "no-new": 0,
     "import/no-unresolved": "off",
     "import/extensions": "never",
-    "class-methods-use-this": ["error", { "exceptMethods": ["render"] }]
+    "class-methods-use-this": ["error", { "exceptMethods": ["render"] }],
+    "no-bitwise": 0,
+    "no-underscore-dangle": 0,
+    "no-script-url": 0
   },
   "settings": {
     "import/resolver": {
