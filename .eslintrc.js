@@ -14,7 +14,8 @@ module.exports = {
     "class-methods-use-this": ["error", { "exceptMethods": ["render"] }],
     "no-bitwise": 0,
     "no-underscore-dangle": 0,
-    "no-script-url": 0
+    "no-script-url": 0,
+    "max-len": 0
   },
   "settings": {
     "import/resolver": {

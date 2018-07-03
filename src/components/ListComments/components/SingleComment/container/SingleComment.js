@@ -3,7 +3,7 @@ import { removeComment } from '@/reducers/articles';
 import SingleComment from '../layout/SingleComment';
 
 const mapStateToProps = state => ({
-  ...state.user,
+  isLogged: state.user.isLogged,
 });
 
 const mapDispatchToProps = {

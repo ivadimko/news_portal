@@ -37,7 +37,7 @@ export default function withModal(WrappedComponent) {
       contentElement: null,
       className: '',
       acceptCallback: () => {},
-      additionalCallback: () => {},
+      additionalCallback: null,
     }
 
     toggleModal = () => {
@@ -87,10 +87,10 @@ export default function withModal(WrappedComponent) {
                 <Button
                   className="button_main button_main button_warning"
                   text={acceptText}
-                  callback={() => {
-                    acceptCallback({ ...acceptCallbackParams, callback: this.toggleModal })
-                      .then(() => additionalCallback());
-                  }}
+                  callback={() => (additionalCallback
+                      ? acceptCallback({ ...acceptCallbackParams, callback: this.toggleModal })
+                        .then(() => additionalCallback())
+                      : acceptCallback({ ...acceptCallbackParams, callback: this.toggleModal }))}
                 />
               </div>
             </ReactModal>

@@ -3,7 +3,7 @@ import { removeArticle, getArticlesList } from '@/reducers/articles';
 import SingleArticle from '../layout/SingleArticle';
 
 const mapStateToProps = state => ({
-  ...state.user,
+  isLogged: state.user.isLogged,
 });
 
 const mapDispatchToProps = {
