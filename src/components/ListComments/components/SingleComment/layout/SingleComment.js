@@ -6,14 +6,14 @@ import '../_SingleComment.scss';
 
 const SingleComment = (props) => {
   const {
-    className, content, headingRef, extraButton, unsafeMode,
+    className, content, headingRef, extraButton, isLogged,
   } = props;
   const { author, comment } = content;
   return (
     <div className={classNames(['comment', className])}>
       <div ref={headingRef} className="comment__top">
         {!!author.length && <p>{author[0].name}</p>}
-        {unsafeMode && extraButton}
+        {isLogged && extraButton}
       </div>
       <div className="comment__body">
         <p>{comment}</p>
@@ -27,14 +27,13 @@ SingleComment.propTypes = {
   className: PropTypes.string,
   headingRef: PropTypes.func,
   extraButton: PropTypes.element,
-  unsafeMode: PropTypes.bool,
+  isLogged: PropTypes.bool.isRequired,
 };
 
 SingleComment.defaultProps = {
   className: '',
   headingRef: () => {},
   extraButton: null,
-  unsafeMode: false,
 };
 
 export default {

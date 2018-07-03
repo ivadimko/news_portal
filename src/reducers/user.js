@@ -40,6 +40,7 @@ const actionHandlers = {
     return ({
       ...state,
       isLogged: true,
+      token: data.token,
       account: { ...data.account },
     });
   },

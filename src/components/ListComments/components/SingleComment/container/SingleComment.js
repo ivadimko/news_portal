@@ -3,7 +3,7 @@ import { removeComment } from '@/reducers/articles';
 import SingleComment from '../layout/SingleComment';
 
 const mapStateToProps = state => ({
-  ...state.app,
+  ...state.user,
 });
 
 const mapDispatchToProps = {

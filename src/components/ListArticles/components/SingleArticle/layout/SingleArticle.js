@@ -28,13 +28,12 @@ class SingleArticle extends Component {
     className: PropTypes.string,
     extraButton: PropTypes.element,
     headingRef: PropTypes.func,
-    unsafeMode: PropTypes.bool,
+    isLogged: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
     previewRows: 2,
     extraButton: null,
-    unsafeMode: false,
     headingRef: () => {},
   }
 
@@ -53,7 +52,7 @@ class SingleArticle extends Component {
 
   render() {
     const {
-      className, content, extraButton, headingRef, unsafeMode,
+      className, content, extraButton, headingRef, isLogged,
     } = this.props;
     const {
       title, author, createAt, text, comments,
@@ -74,7 +73,7 @@ class SingleArticle extends Component {
               isActive={isOpened}
               callback={this.toggleOpen}
             />
-            {unsafeMode && extraButton}
+            {isLogged && extraButton}
 
           </div>
         </header>

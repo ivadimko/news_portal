@@ -23,13 +23,14 @@ export default class ListArticles extends Component {
   }
 
   handleSubmit = ({ callback }) => {
-    const { addNewArticle } = this.props;
+    const { addNewArticle, getArticlesList } = this.props;
     this.formInstance.validateFields((err, values) => {
       if (!err) {
         this.formInstance.resetFields();
         console.log('Received values of form: ', values); // eslint-disable-line no-console
-        addNewArticle(values);
-        callback();
+        addNewArticle({ ...values })
+          .then(() => getArticlesList())
+          .then(() => callback());
       }
     });
   }
@@ -71,7 +72,7 @@ export default class ListArticles extends Component {
           <div className="articles-list">
             {articles.sort(sortDatesDesc).map(article => (
               <SingleArticle key={article._id}
-                             acceptCallbackParams={{ _id: article._id }}
+                             acceptCallbackParams={{ slug: article.slug }}
                              modalHeading="Do you want to delete this article?"
                              className="articles-list__item"
                              toggleButton={{
