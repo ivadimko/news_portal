@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import { sortDatesDesc } from '@/helpers/helper';
 import SingleArticle from '../components/SingleArticle';
-import AddNewArticle from '../components/AddNewArticle';
-import AddNewArticleForm from '../components/AddNewArticle/components/Form';
 import '../_ListArticles.scss';
 
 
-export default class ListArticles extends Component {
+class ListArticles extends Component {
   constructor() {
     super();
     // refs
@@ -16,23 +15,8 @@ export default class ListArticles extends Component {
 
   static propTypes = {
     articles: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
-    addNewArticle: PropTypes.func.isRequired,
     getArticlesList: PropTypes.func.isRequired,
     isLogged: PropTypes.bool.isRequired,
-    children: PropTypes.element,
-  }
-
-  handleSubmit = ({ callback }) => {
-    const { addNewArticle, getArticlesList } = this.props;
-    this.formInstance.validateFields((err, values) => {
-      if (!err) {
-        this.formInstance.resetFields();
-        console.log('Received values of form: ', values); // eslint-disable-line no-console
-        addNewArticle({ ...values })
-          .then(() => getArticlesList())
-          .then(() => callback());
-      }
-    });
   }
 
   componentDidMount() {
@@ -41,31 +25,12 @@ export default class ListArticles extends Component {
   }
 
   render() {
-    const { articles, isLogged, children } = this.props;
+    const { articles, isLogged } = this.props;
     return (
-      <div className="grid-x grid-margin-x align-bottom">
-        {children && (
-          <div className="cell auto">
-            {children}
-          </div>
-        )}
+      <div className="grid-x grid-margin-x align-bottom align-right">
         {isLogged && (
-          <div className="cell large-3">
-            <AddNewArticle
-              modalHeading="Add new Article"
-              className="articles-list__item"
-              toggleButton={{
-                className: 'button button_main modal-toggle',
-                text: 'Add new article',
-              }}
-              contentElement={<AddNewArticleForm
-                ref={(instance) => { this.formInstance = instance; }}
-              />}
-              acceptCallback={this.handleSubmit}
-              acceptCallbackParams={{}}
-              acceptText="Add Article"
-              declineText="Cancel"
-            />
+          <div className="cell large-3 article-create-link">
+            <NavLink to={{ pathname: '/new-article', state: { title: 'New Article' } }}>Add new article</NavLink>
           </div>
         )}
         <div className="cell">
@@ -87,3 +52,5 @@ export default class ListArticles extends Component {
     );
   }
 }
+
+export default ListArticles;

@@ -17,6 +17,9 @@ const scssUtilsPath = 'src/styles/utils';
 
 
 module.exports = {
+  devServer: {
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {

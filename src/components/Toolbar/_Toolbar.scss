@@ -1,0 +1,12 @@
+.links{
+  display: flex;
+  align-items: baseline;
+  &__item{
+    &:not(:last-child) {
+      margin-right: $indent-xl;
+    }
+    &.active{
+      text-decoration: underline;
+    }
+  }
+}
