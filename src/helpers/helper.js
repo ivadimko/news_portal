@@ -1,4 +1,5 @@
 import moment from 'moment';
 
-// eslint-disable-next-line import/prefer-default-export
-export const sortDatesDesc = (a, b) => moment(b.date).diff(a.date);
+export const sortDatesDesc = (a, b) => moment(b.createAt).diff(a.createAt);
+
+export const hasErrors = fieldsError => Object.keys(fieldsError).some(field => fieldsError[field]);

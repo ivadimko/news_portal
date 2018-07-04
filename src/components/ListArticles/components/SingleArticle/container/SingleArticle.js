@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
-import { removeArticle } from '@/reducers/articles';
+import { removeArticle, getArticlesList } from '@/reducers/articles';
 import SingleArticle from '../layout/SingleArticle';
 
 const mapStateToProps = state => ({
-  ...state.app,
+  isLogged: state.user.isLogged,
 });
 
 const mapDispatchToProps = {
   acceptCallback: removeArticle,
+  additionalCallback: getArticlesList,
 };
 
 export default connect(

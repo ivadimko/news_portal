@@ -3,7 +3,7 @@
 		padding: $indent-m 0;
     margin-bottom: $indent-xl;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     .react-toggle--checked .react-toggle-track {
       &, &:hover{
         &:not(.disabled){

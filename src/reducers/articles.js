@@ -1,34 +1,62 @@
-import uid from 'uid';
-import moment from 'moment';
-import articlesList from '@/data/articles-list.json';
-import { REMOVE_ARTICLE, REMOVE_COMMENT, ADD_ARTICLE } from '@/store/actions';
 import { List } from 'immutable';
+import api from '@/config/api';
+import cookies from 'js-cookie';
+import { USER_TOKEN } from '@/config/constants';
+
+import {
+  REMOVE_COMMENT,
+  GET_ARTICLES_LIST,
+  GET_ARTICLES_LIST_ERROR,
+  GET_ARTICLES_LIST_SUCCESS,
+  REMOVE_ARTICLE,
+  REMOVE_ARTICLE_SUCCESS,
+  REMOVE_ARTICLE_ERROR,
+  ADD_ARTICLE,
+  ADD_ARTICLE_ERROR,
+  ADD_ARTICLE_SUCCESS,
+} from '@/store/actions';
 
 const initialState = {
-  articles: List(articlesList),
+  articles: [],
 };
 
 const actionHandlers = {
-  [ADD_ARTICLE]: (state, action) => {
-    const { title, text } = action;
+  [GET_ARTICLES_LIST_SUCCESS]: (state, { payload }) => { // eslint-disable-line no-unused-vars
+    const { data } = payload;
     return ({
       ...state,
-      articles: state.articles.concat({
-        id: uid(10),
-        title,
-        author: 'Anonymous',
-        date: moment(),
-        text,
-        comments: [],
-      }),
+      articles: List(data.items),
     });
   },
-  [REMOVE_ARTICLE]: (state, action) => {
-    const { id } = action;
-    return ({
+  [GET_ARTICLES_LIST_ERROR]: (state, { payload }) => { // eslint-disable-line no-unused-vars
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
       ...state,
-      articles: state.articles.filter(article => article.id !== id),
-    });
+    };
+  },
+  [ADD_ARTICLE_SUCCESS]: state => ({
+    ...state,
+  }),
+  [ADD_ARTICLE_ERROR]: (state, { payload }) => {
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
+      ...state,
+    };
+  },
+  [REMOVE_ARTICLE_SUCCESS]: state => ({
+    ...state,
+  }),
+  [REMOVE_ARTICLE_ERROR]: (state, { payload }) => {
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
+      ...state,
+    };
   },
   [REMOVE_COMMENT]: (state, action) => {
     const { id, articleId } = action;
@@ -46,23 +74,57 @@ const actionHandlers = {
   },
 };
 
-export const removeArticle = ({ id }) => ({
-  type: REMOVE_ARTICLE,
-  id,
+
+export const getArticlesList = () => ({
+  type: GET_ARTICLES_LIST,
+  apiURI: {
+    url: `${api.host}/article/get`,
+    params: {
+      method: 'GET',
+      headers: api.headers,
+    },
+  },
 });
 
+export const removeArticle = ({ slug }) => {
+  const token = cookies.get(USER_TOKEN);
+  return ({
+    type: REMOVE_ARTICLE,
+    apiURI: {
+      url: `${api.host}/article/remove/${slug}`,
+      params: {
+        method: 'DELETE',
+        headers: {
+          ...api.headers,
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    },
+  });
+};
 export const removeComment = ({ id, articleId }) => ({
   type: REMOVE_COMMENT,
   id,
   articleId,
 });
 
-export const addNewArticle = ({ title, text }) => ({
-  type: ADD_ARTICLE,
-  title,
-  text,
-});
-
+export const addNewArticle = (data) => {
+  const token = cookies.get(USER_TOKEN);
+  return ({
+    type: ADD_ARTICLE,
+    apiURI: {
+      url: `${api.host}/article/create`,
+      params: {
+        method: 'POST',
+        headers: {
+          ...api.headers,
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      },
+    },
+  });
+};
 export default (state = initialState, action) => {
   const handler = actionHandlers[action.type];
 

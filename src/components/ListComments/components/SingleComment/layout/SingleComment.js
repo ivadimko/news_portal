@@ -1,24 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Date from '@/components/Date/index';
 import withModal from '@/components/hoc/with-modal/index';
 import '../_SingleComment.scss';
 
 const SingleComment = (props) => {
   const {
-    className, content, headingRef, extraButton, unsafeMode,
+    className, content, headingRef, extraButton, isLogged,
   } = props;
-  const { author, text, date } = content;
+  const { author, comment } = content;
   return (
     <div className={classNames(['comment', className])}>
       <div ref={headingRef} className="comment__top">
-        <p>{author}</p>
-        <Date date={date} format={'DD[.]MM[.]YYYY'}/>
-        {unsafeMode && extraButton}
+        {!!author.length && <p>{author[0].name}</p>}
+        {isLogged && extraButton}
       </div>
       <div className="comment__body">
-        <p>{text}</p>
+        <p>{comment}</p>
       </div>
     </div>
   );
@@ -29,14 +27,13 @@ SingleComment.propTypes = {
   className: PropTypes.string,
   headingRef: PropTypes.func,
   extraButton: PropTypes.element,
-  unsafeMode: PropTypes.bool,
+  isLogged: PropTypes.bool.isRequired,
 };
 
 SingleComment.defaultProps = {
   className: '',
   headingRef: () => {},
   extraButton: null,
-  unsafeMode: false,
 };
 
 export default {

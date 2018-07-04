@@ -27,6 +27,7 @@ export default function withModal(WrappedComponent) {
       contentElement: PropTypes.element,
       className: PropTypes.string,
       acceptCallback: PropTypes.func,
+      additionalCallback: PropTypes.func,
       acceptCallbackParams: PropTypes.object.isRequired,
     }
 
@@ -36,6 +37,7 @@ export default function withModal(WrappedComponent) {
       contentElement: null,
       className: '',
       acceptCallback: () => {},
+      additionalCallback: null,
     }
 
     toggleModal = () => {
@@ -50,6 +52,7 @@ export default function withModal(WrappedComponent) {
         declineText,
         className,
         toggleButton,
+        additionalCallback,
         acceptCallback,
         acceptCallbackParams,
         contentElement,
@@ -84,9 +87,10 @@ export default function withModal(WrappedComponent) {
                 <Button
                   className="button_main button_main button_warning"
                   text={acceptText}
-                  callback={() => {
-                    acceptCallback({ ...acceptCallbackParams, callback: this.toggleModal });
-                  }}
+                  callback={() => (additionalCallback
+                      ? acceptCallback({ ...acceptCallbackParams, callback: this.toggleModal })
+                        .then(() => additionalCallback())
+                      : acceptCallback({ ...acceptCallbackParams, callback: this.toggleModal }))}
                 />
               </div>
             </ReactModal>

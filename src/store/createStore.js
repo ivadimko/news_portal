@@ -1,15 +1,27 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducer';
+import { logger, apiFetch } from './middleware';
 
 const initialState = {};
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  // eslint-disable-next-line no-underscore-dangle
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(thunk),
-);
+const enhancers = [];
+const middleware = [
+  thunk, /* , actions as functions */
+  apiFetch, /* , ultra fetch */
+  logger, /* , ultra console log */
+];
+
+const { devToolsExtension } = window;
+
+if (typeof devToolsExtension === 'function') {
+  enhancers.push(devToolsExtension());
+}
+
+const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
+
+
+const store = createStore(rootReducer, initialState, composedEnhancers);
 
 export default store;
+
