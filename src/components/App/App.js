@@ -4,7 +4,7 @@ import { HashRouter, Route } from 'react-router-dom';
 
 const App = () => (
   <HashRouter>
-    <Route component={CoreLayout}/>
+    <Route path="/" component={CoreLayout}/>
   </HashRouter>
 );
 

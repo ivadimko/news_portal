@@ -55,7 +55,7 @@ class CoreLayout extends Component {
     const { isLogged } = this.props;
     return (
       <Fragment>
-        <Route component={Header}/>
+        <Header/>
         <Switch>
 
           <Route exact path="/" render={() => (
