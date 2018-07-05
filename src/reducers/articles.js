@@ -5,6 +5,11 @@ import { USER_TOKEN } from '@/config/constants';
 
 import {
   REMOVE_COMMENT,
+  REMOVE_COMMENT_SUCCESS,
+  REMOVE_COMMENT_ERROR,
+  ADD_COMMENT,
+  ADD_COMMENT_SUCCESS,
+  ADD_COMMENT_ERROR,
   GET_ARTICLES_LIST,
   GET_ARTICLES_LIST_ERROR,
   GET_ARTICLES_LIST_SUCCESS,
@@ -28,6 +33,11 @@ const initialState = {
 };
 
 const actionHandlers = {
+  [GET_ARTICLES_LIST]: state => // eslint-disable-line no-unused-vars
+    ({
+      ...state,
+      currentArticle: {},
+    }),
   [GET_ARTICLES_LIST_SUCCESS]: (state, { payload }) => { // eslint-disable-line no-unused-vars
     const { data } = payload;
     return ({
@@ -47,7 +57,7 @@ const actionHandlers = {
     const { data } = payload;
     return ({
       ...state,
-      currentArticle: data,
+      currentArticle: data.data[0],
     });
   },
   [GET_ARTICLE_INFO_ERROR]: (state, { payload }) => { // eslint-disable-line no-unused-vars
@@ -91,27 +101,35 @@ const actionHandlers = {
       ...state,
     };
   },
-  [REMOVE_COMMENT]: (state, action) => {
-    const { id, articleId } = action;
-    return ({
+  [REMOVE_COMMENT_SUCCESS]: state => ({
+    ...state,
+  }),
+  [REMOVE_COMMENT_ERROR]: (state, { payload }) => {
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
       ...state,
-      articles: state.articles.map(article => (
-        article.id === articleId
-          ? {
-            ...article,
-            comments: article.comments.filter(comment => comment.id !== id),
-          }
-          : article
-      )),
-    });
+    };
+  },
+  [ADD_COMMENT_SUCCESS]: state => ({
+    ...state,
+  }),
+  [ADD_COMMENT_ERROR]: (state, { payload }) => {
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
+      ...state,
+    };
   },
 };
 
 
-export const getArticleInfo = slug => ({
+export const getArticleInfo = ({ slug }) => ({
   type: GET_ARTICLE_INFO,
   apiURI: {
-    url: `${api.host}/article/${slug}`,
+    url: `${api.host}/article/get/${slug}`,
     params: {
       method: 'GET',
       headers: api.headers,
@@ -167,11 +185,41 @@ export const editArticle = ({ slug, title, text }) => {
 };
 
 
-export const removeComment = ({ id, articleId }) => ({
-  type: REMOVE_COMMENT,
-  id,
-  articleId,
-});
+export const addNewComment = ({ article_id, comment }) => { // eslint-disable-line camelcase
+  const token = cookies.get(USER_TOKEN);
+  return ({
+    type: ADD_COMMENT,
+    apiURI: {
+      url: `${api.host}/comment/create`,
+      params: {
+        method: 'POST',
+        headers: {
+          ...api.headers,
+          Authorization: `Bearer ${token}`,
+
+        },
+        body: JSON.stringify({ article_id, comment }),
+      },
+    },
+  });
+};
+
+export const removeComment = ({ id }) => {
+  const token = cookies.get(USER_TOKEN);
+  return ({
+    type: REMOVE_COMMENT,
+    apiURI: {
+      url: `${api.host}/comment/remove/${id}`,
+      params: {
+        method: 'DELETE',
+        headers: {
+          ...api.headers,
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    },
+  });
+};
 
 export const addNewArticle = (data) => {
   const token = cookies.get(USER_TOKEN);

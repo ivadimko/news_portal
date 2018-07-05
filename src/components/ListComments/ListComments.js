@@ -6,16 +6,17 @@ import './_ListComments.scss';
 export default class ListComments extends Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
-    articleId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    slug: PropTypes.string,
   };
 
   render() {
-    const { list, articleId } = this.props;
+    const { list, slug } = this.props;
     return (
       <div className="comments-list">
         {list.map(comment => (
           <SingleComment key={comment.id}
-                         acceptCallbackParams={{ articleId, id: comment.id }}
+                         acceptCallbackParams={{ id: comment.id }}
+                         additionalCallbackParams={{ slug }}
                          modalHeading="Do you want to delete this comment?"
                          toggleButton={{
                            className: 'button button_icon button_warning modal-toggle',

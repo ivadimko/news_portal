@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { removeComment } from '@/reducers/articles';
+import { getArticleInfo, removeComment } from '@/reducers/articles';
 import SingleComment from '../layout/SingleComment';
 
 const mapStateToProps = state => ({
@@ -8,6 +8,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   acceptCallback: removeComment,
+  additionalCallback: getArticleInfo,
 };
 
 export default connect(

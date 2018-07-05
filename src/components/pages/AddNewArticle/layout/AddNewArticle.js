@@ -65,7 +65,7 @@ class AddNewArticle extends Component {
             </div>
             <div className="cell large-6 large-offset-3 form__item">
               <FormItem
-                label="Text"
+                label="Comment"
                 validateStatus={hasError('text')}
               >
                 {getFieldDecorator('text', config.text)(<Input.TextArea

@@ -102,14 +102,14 @@ class SingleArticle extends Component {
               />
             </div>
             }
-            <NavLink to={{ pathname: `/view-article/${slug}`, state: { title } }}>View full article</NavLink>
+            <NavLink className="article__edit-link" to={{ pathname: `/view-article/${slug}`, state: { title } }}>View full article</NavLink>
             {isLogged && <NavLink to={{ pathname: `/edit-article/${slug}`, state: { title, text } }}>Edit Article</NavLink>}
           </footer>
           }
         </div>
         {isOpened && isCommentsShown &&
         <div className="article__comments">
-          <ListComments list={comments} articleId={content._id}/>
+          <ListComments list={comments} slug={slug}/>
         </div>
         }
       </article>

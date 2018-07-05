@@ -1,5 +1,13 @@
 .article {
+  &_single{
+    background-color: $c-white;
+    padding: $indent-xl;
+  }
 	@include box-shadow;
+  &__edit-link{
+    margin-left: auto;
+    margin-right: $indent-xl;
+  }
 	&__info {
 		display: flex;
 		align-items: baseline;
