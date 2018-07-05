@@ -8,6 +8,12 @@ import {
   GET_ARTICLES_LIST,
   GET_ARTICLES_LIST_ERROR,
   GET_ARTICLES_LIST_SUCCESS,
+  GET_ARTICLE_INFO,
+  GET_ARTICLE_INFO_ERROR,
+  GET_ARTICLE_INFO_SUCCESS,
+  EDIT_ARTICLE,
+  EDIT_ARTICLE_ERROR,
+  EDIT_ARTICLE_SUCCESS,
   REMOVE_ARTICLE,
   REMOVE_ARTICLE_SUCCESS,
   REMOVE_ARTICLE_ERROR,
@@ -18,6 +24,7 @@ import {
 
 const initialState = {
   articles: [],
+  currentArticle: {},
 };
 
 const actionHandlers = {
@@ -29,6 +36,21 @@ const actionHandlers = {
     });
   },
   [GET_ARTICLES_LIST_ERROR]: (state, { payload }) => { // eslint-disable-line no-unused-vars
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
+      ...state,
+    };
+  },
+  [GET_ARTICLE_INFO_SUCCESS]: (state, { payload }) => { // eslint-disable-line no-unused-vars
+    const { data } = payload;
+    return ({
+      ...state,
+      currentArticle: data,
+    });
+  },
+  [GET_ARTICLE_INFO_ERROR]: (state, { payload }) => { // eslint-disable-line no-unused-vars
     const { data } = payload;
     console.log(data); // eslint-disable-line no-console
     alert(data); // eslint-disable-line no-alert
@@ -58,6 +80,17 @@ const actionHandlers = {
       ...state,
     };
   },
+  [EDIT_ARTICLE_SUCCESS]: state => ({
+    ...state,
+  }),
+  [EDIT_ARTICLE_ERROR]: (state, { payload }) => {
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
+      ...state,
+    };
+  },
   [REMOVE_COMMENT]: (state, action) => {
     const { id, articleId } = action;
     return ({
@@ -73,6 +106,18 @@ const actionHandlers = {
     });
   },
 };
+
+
+export const getArticleInfo = slug => ({
+  type: GET_ARTICLE_INFO,
+  apiURI: {
+    url: `${api.host}/article/${slug}`,
+    params: {
+      method: 'GET',
+      headers: api.headers,
+    },
+  },
+});
 
 
 export const getArticlesList = () => ({
@@ -102,6 +147,26 @@ export const removeArticle = ({ slug }) => {
     },
   });
 };
+
+export const editArticle = ({ slug, title, text }) => {
+  const token = cookies.get(USER_TOKEN);
+  return ({
+    type: EDIT_ARTICLE,
+    apiURI: {
+      url: `${api.host}/article/update/${slug}`,
+      params: {
+        method: 'PUT',
+        headers: {
+          ...api.headers,
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ title, text }),
+      },
+    },
+  });
+};
+
+
 export const removeComment = ({ id, articleId }) => ({
   type: REMOVE_COMMENT,
   id,

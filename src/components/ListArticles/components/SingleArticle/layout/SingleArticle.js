@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shave from 'shave';
-import helper from '@/scripts/utils/helper/index';
-import Date from '@/components/Date/index';
-import ListComments from '@/components/ListComments/index';
-import Button from '@/components/Button/index';
-import withModal from '@/components/hoc/with-modal/index';
+import helper from '@/scripts/utils/helper';
+import Date from '@/components/Date';
+import ListComments from '@/components/ListComments';
+import Button from '@/components/Button';
+import withModal from '@/components/hoc/with-modal';
+import { NavLink } from 'react-router-dom';
 import '../_SingleArticle.scss';
 
 class SingleArticle extends Component {
@@ -55,7 +56,7 @@ class SingleArticle extends Component {
       className, content, extraButton, headingRef, isLogged,
     } = this.props;
     const {
-      title, author, createAt, text, comments,
+      title, author, createAt, text, comments, slug,
     } = content;
     const { isOpened, isCommentsShown } = this.state;
 
@@ -101,13 +102,8 @@ class SingleArticle extends Component {
               />
             </div>
             }
-            <Button
-              activeText="Hide Content"
-              className="button_sub"
-              text="Explore More"
-              isActive={isOpened}
-              callback={this.toggleOpen}
-            />
+            <NavLink to={{ pathname: `/view-article/${slug}`, state: { title } }}>View full article</NavLink>
+            {isLogged && <NavLink to={{ pathname: `/edit-article/${slug}`, state: { title, text } }}>Edit Article</NavLink>}
           </footer>
           }
         </div>

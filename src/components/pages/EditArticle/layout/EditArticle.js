@@ -6,27 +6,40 @@ import { hasErrors } from '@/helpers/helper';
 
 const FormItem = Form.Item;
 
-class AddNewArticle extends Component {
+class EditArticle extends Component {
   static propTypes = {
     form: PropTypes.object.isRequired,
     getArticlesList: PropTypes.func.isRequired,
-    addNewArticle: PropTypes.func.isRequired,
+    editArticle: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
   };
 
   componentDidMount() {
-    this.props.form.validateFields();
+    const { form, location, history } = this.props;
+    if (location.state) {
+      const { title, text } = location.state;
+
+      return form.setFieldsValue({
+        title,
+        text,
+      }, form.validateFields());
+    }
+
+    return history.push('/home');
   }
   handleSubmit = (e) => {
     e.preventDefault();
     const {
-      addNewArticle, getArticlesList, form, history,
+      editArticle, getArticlesList, form, history, match,
     } = this.props;
+    const { slug } = match.params;
     form.validateFields((err, values) => {
       if (!err) {
         form.resetFields();
         console.log('Received values of form: ', values); // eslint-disable-line no-console
-        addNewArticle({ ...values })
+        editArticle({ slug, ...values })
           .then(() => getArticlesList())
           .then(() => history.push('/home'));
       }
@@ -80,7 +93,7 @@ class AddNewArticle extends Component {
                   htmlType="submit"
                   disabled={hasErrors(getFieldsError())}
                 >
-                  Add Article
+                  Update Article
                 </Button>
               </FormItem>
             </div>
@@ -91,4 +104,4 @@ class AddNewArticle extends Component {
   }
 }
 
-export default withRouter(Form.create()(AddNewArticle));
+export default withRouter(Form.create()(EditArticle));

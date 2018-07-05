@@ -7,6 +7,8 @@ import Home from '@/components/pages/Home';
 import SignIn from '@/components/pages/SignIn';
 import SignUp from '@/components/pages/SignUp';
 import AddNewArticle from '@/components/pages/AddNewArticle';
+import ViewArticle from '@/components/pages/ViewArticle';
+import EditArticle from '@/components/pages/EditArticle';
 import Header from '../components/Header';
 
 class CoreLayout extends Component {
@@ -42,6 +44,8 @@ class CoreLayout extends Component {
           <Route path='/sign-in' component={SignIn}/>
           <Route path='/sign-up' component={SignUp}/>
           <Route path='/new-article' component={AddNewArticle}/>
+          <Route path='/view-article/:slug' component={ViewArticle}/>
+          <Route path='/edit-article/:slug' component={EditArticle}/>
         </Switch>
       </Fragment>
     );

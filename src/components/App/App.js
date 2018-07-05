@@ -1,11 +1,11 @@
 import React from 'react';
 import CoreLayout from '@/layouts/CoreLayout/index';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 
 const App = () => (
-  <BrowserRouter>
+  <HashRouter>
     <Route component={CoreLayout}/>
-  </BrowserRouter>
+  </HashRouter>
 );
 
 
