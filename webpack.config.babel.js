@@ -1,3 +1,6 @@
+import { ReactLoadablePlugin } from 'react-loadable/webpack';
+import { resolve } from './webpack.aliases';
+
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -5,13 +8,16 @@ const ModernizrWebpackPlugin = require('modernizr-webpack-plugin');
 const postCssConfig = require('./config/postcss.config');
 const modernizrConfig = require('./config/modernizr.config');
 
-const context = path.resolve(__dirname, 'src');
+// const context = path.resolve(__dirname, 'src');
 const htmlPlugin = new HtmlWebpackPlugin({
-  template: "./src/index.html",
-  filename: "./index.html"
+  template: './src/index.html',
+  filename: './index.html',
 });
 const cssPlugin = new ExtractTextPlugin('css/[name].[hash].css');
 const modernizrPlugin = new ModernizrWebpackPlugin(modernizrConfig);
+const reactLoadablePlugin = new ReactLoadablePlugin({
+  filename: './dist/react-loadable.json',
+});
 
 const scssUtilsPath = 'src/styles/utils';
 
@@ -26,8 +32,8 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.s?css$/,
@@ -38,12 +44,12 @@ module.exports = {
               loader: 'css-loader',
               options: {
                 importLoaders: 3,
-                sourceMap: true
-              }
+                sourceMap: true,
+              },
             },
             {
               loader: 'postcss-loader',
-              options: postCssConfig
+              options: postCssConfig,
             },
             'resolve-url-loader',
             {
@@ -51,20 +57,20 @@ module.exports = {
               options: {
                 outputStyle: 'compact',
                 sourceMap: true,
-                sourceComments: true
-              }
+                sourceComments: true,
+              },
             },
             {
               loader: 'sass-resources-loader',
               options: {
                 resources: [
                   path.join(__dirname, `${scssUtilsPath}/_vars.scss`),
-                  path.join(__dirname, `${scssUtilsPath}/_mixins.scss`)
-                ]
+                  path.join(__dirname, `${scssUtilsPath}/_mixins.scss`),
+                ],
               },
             },
-          ]
-        })
+          ],
+        }),
       },
       {
         test: /\.(ttf|woff|eot|svg)$/,
@@ -73,35 +79,30 @@ module.exports = {
         options: {
           name: 'icomoon/[name].[ext]',
           outputPath: './fonts',
-          publicPath: '../fonts'
+          publicPath: '../fonts',
         },
       },
-    ]
+    ],
   },
   // entry: './src/index.js',
   output: {
     // path: path.resolve(__dirname, 'dist'),
-    filename: 'js/[name].[chunkhash].js'
+    filename: 'js/[name].[chunkhash].js',
   },
-  plugins: [ htmlPlugin, cssPlugin, modernizrPlugin ],
-  resolve: {
-    extensions: [ ".js", ".jsx" ],
-    alias: {
-      '@': path.join(__dirname, 'src')
-    }
-  },
+  plugins: [htmlPlugin, cssPlugin, modernizrPlugin, reactLoadablePlugin],
+  resolve,
   optimization: {
     splitChunks: {
       cacheGroups: {
         commons: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
-          chunks: 'all'
-        }
-      }
+          chunks: 'all',
+        },
+      },
     },
     runtimeChunk: {
       name: 'manifest',
-    }
+    },
   },
 };
