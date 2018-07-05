@@ -1,17 +1,16 @@
 import { connect } from 'react-redux';
-import { getArticlesList } from '@/reducers/articles';
-import ListArticles from '../layout/ListArticles';
+import { getUserDetails } from '@/reducers/user';
+import CoreLayout from '../layout/CoreLayout';
 
 const mapStateToProps = state => ({
   isLogged: state.user.isLogged,
-  ...state.articles,
 });
 
 const mapDispatchToProps = {
-  getArticlesList,
+  getUserDetails,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListArticles);
+)(CoreLayout);

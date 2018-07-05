@@ -28,6 +28,7 @@ export default function withModal(WrappedComponent) {
       className: PropTypes.string,
       acceptCallback: PropTypes.func,
       additionalCallback: PropTypes.func,
+      additionalCallbackParams: PropTypes.object,
       acceptCallbackParams: PropTypes.object.isRequired,
     }
 
@@ -38,6 +39,7 @@ export default function withModal(WrappedComponent) {
       className: '',
       acceptCallback: () => {},
       additionalCallback: null,
+      additionalCallbackParams: {},
     }
 
     toggleModal = () => {
@@ -53,6 +55,7 @@ export default function withModal(WrappedComponent) {
         className,
         toggleButton,
         additionalCallback,
+        additionalCallbackParams,
         acceptCallback,
         acceptCallbackParams,
         contentElement,
@@ -89,7 +92,7 @@ export default function withModal(WrappedComponent) {
                   text={acceptText}
                   callback={() => (additionalCallback
                       ? acceptCallback({ ...acceptCallbackParams, callback: this.toggleModal })
-                        .then(() => additionalCallback())
+                        .then(() => additionalCallback(additionalCallbackParams))
                       : acceptCallback({ ...acceptCallbackParams, callback: this.toggleModal }))}
                 />
               </div>

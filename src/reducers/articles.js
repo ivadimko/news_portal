@@ -5,9 +5,20 @@ import { USER_TOKEN } from '@/config/constants';
 
 import {
   REMOVE_COMMENT,
+  REMOVE_COMMENT_SUCCESS,
+  REMOVE_COMMENT_ERROR,
+  ADD_COMMENT,
+  ADD_COMMENT_SUCCESS,
+  ADD_COMMENT_ERROR,
   GET_ARTICLES_LIST,
   GET_ARTICLES_LIST_ERROR,
   GET_ARTICLES_LIST_SUCCESS,
+  GET_ARTICLE_INFO,
+  GET_ARTICLE_INFO_ERROR,
+  GET_ARTICLE_INFO_SUCCESS,
+  EDIT_ARTICLE,
+  EDIT_ARTICLE_ERROR,
+  EDIT_ARTICLE_SUCCESS,
   REMOVE_ARTICLE,
   REMOVE_ARTICLE_SUCCESS,
   REMOVE_ARTICLE_ERROR,
@@ -18,9 +29,15 @@ import {
 
 const initialState = {
   articles: [],
+  currentArticle: {},
 };
 
 const actionHandlers = {
+  [GET_ARTICLES_LIST]: state => // eslint-disable-line no-unused-vars
+    ({
+      ...state,
+      currentArticle: {},
+    }),
   [GET_ARTICLES_LIST_SUCCESS]: (state, { payload }) => { // eslint-disable-line no-unused-vars
     const { data } = payload;
     return ({
@@ -29,6 +46,21 @@ const actionHandlers = {
     });
   },
   [GET_ARTICLES_LIST_ERROR]: (state, { payload }) => { // eslint-disable-line no-unused-vars
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
+      ...state,
+    };
+  },
+  [GET_ARTICLE_INFO_SUCCESS]: (state, { payload }) => { // eslint-disable-line no-unused-vars
+    const { data } = payload;
+    return ({
+      ...state,
+      currentArticle: data.data[0],
+    });
+  },
+  [GET_ARTICLE_INFO_ERROR]: (state, { payload }) => { // eslint-disable-line no-unused-vars
     const { data } = payload;
     console.log(data); // eslint-disable-line no-console
     alert(data); // eslint-disable-line no-alert
@@ -58,21 +90,52 @@ const actionHandlers = {
       ...state,
     };
   },
-  [REMOVE_COMMENT]: (state, action) => {
-    const { id, articleId } = action;
-    return ({
+  [EDIT_ARTICLE_SUCCESS]: state => ({
+    ...state,
+  }),
+  [EDIT_ARTICLE_ERROR]: (state, { payload }) => {
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
       ...state,
-      articles: state.articles.map(article => (
-        article.id === articleId
-          ? {
-            ...article,
-            comments: article.comments.filter(comment => comment.id !== id),
-          }
-          : article
-      )),
-    });
+    };
+  },
+  [REMOVE_COMMENT_SUCCESS]: state => ({
+    ...state,
+  }),
+  [REMOVE_COMMENT_ERROR]: (state, { payload }) => {
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
+      ...state,
+    };
+  },
+  [ADD_COMMENT_SUCCESS]: state => ({
+    ...state,
+  }),
+  [ADD_COMMENT_ERROR]: (state, { payload }) => {
+    const { data } = payload;
+    console.log(data); // eslint-disable-line no-console
+    alert(data); // eslint-disable-line no-alert
+    return {
+      ...state,
+    };
   },
 };
+
+
+export const getArticleInfo = ({ slug }) => ({
+  type: GET_ARTICLE_INFO,
+  apiURI: {
+    url: `${api.host}/article/get/${slug}`,
+    params: {
+      method: 'GET',
+      headers: api.headers,
+    },
+  },
+});
 
 
 export const getArticlesList = () => ({
@@ -102,11 +165,61 @@ export const removeArticle = ({ slug }) => {
     },
   });
 };
-export const removeComment = ({ id, articleId }) => ({
-  type: REMOVE_COMMENT,
-  id,
-  articleId,
-});
+
+export const editArticle = ({ slug, title, text }) => {
+  const token = cookies.get(USER_TOKEN);
+  return ({
+    type: EDIT_ARTICLE,
+    apiURI: {
+      url: `${api.host}/article/update/${slug}`,
+      params: {
+        method: 'PUT',
+        headers: {
+          ...api.headers,
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ title, text }),
+      },
+    },
+  });
+};
+
+
+export const addNewComment = ({ article_id, comment }) => { // eslint-disable-line camelcase
+  const token = cookies.get(USER_TOKEN);
+  return ({
+    type: ADD_COMMENT,
+    apiURI: {
+      url: `${api.host}/comment/create`,
+      params: {
+        method: 'POST',
+        headers: {
+          ...api.headers,
+          Authorization: `Bearer ${token}`,
+
+        },
+        body: JSON.stringify({ article_id, comment }),
+      },
+    },
+  });
+};
+
+export const removeComment = ({ id }) => {
+  const token = cookies.get(USER_TOKEN);
+  return ({
+    type: REMOVE_COMMENT,
+    apiURI: {
+      url: `${api.host}/comment/remove/${id}`,
+      params: {
+        method: 'DELETE',
+        headers: {
+          ...api.headers,
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    },
+  });
+};
 
 export const addNewArticle = (data) => {
   const token = cookies.get(USER_TOKEN);

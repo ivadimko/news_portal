@@ -1,17 +1,16 @@
 import { connect } from 'react-redux';
-import { getArticlesList } from '@/reducers/articles';
-import ListArticles from '../layout/ListArticles';
+import { signUp, signIn } from '@/reducers/user';
+import SignUpForm from '../layout/SignUp';
 
 const mapStateToProps = state => ({
   isLogged: state.user.isLogged,
-  ...state.articles,
 });
 
 const mapDispatchToProps = {
-  getArticlesList,
+  signUp, signIn,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListArticles);
+)(SignUpForm);

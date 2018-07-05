@@ -2,18 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withModal from '@/components/hoc/with-modal/index';
+import { withRouter } from 'react-router-dom';
 import '../_SingleComment.scss';
 
 const SingleComment = (props) => {
   const {
-    className, content, headingRef, extraButton, isLogged,
+    className, content, headingRef, extraButton, isLogged, location,
   } = props;
+  const allowExtraActions = ~location.pathname.indexOf('view-article');
   const { author, comment } = content;
   return (
     <div className={classNames(['comment', className])}>
       <div ref={headingRef} className="comment__top">
         {!!author.length && <p>{author[0].name}</p>}
-        {isLogged && extraButton}
+        {!!allowExtraActions && isLogged && extraButton}
       </div>
       <div className="comment__body">
         <p>{comment}</p>
@@ -28,6 +30,7 @@ SingleComment.propTypes = {
   headingRef: PropTypes.func,
   extraButton: PropTypes.element,
   isLogged: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 SingleComment.defaultProps = {
@@ -37,6 +40,6 @@ SingleComment.defaultProps = {
 };
 
 export default {
-  default: SingleComment,
-  withModal: withModal(SingleComment),
+  default: withRouter(SingleComment),
+  withModal: withRouter(withModal(SingleComment)),
 };

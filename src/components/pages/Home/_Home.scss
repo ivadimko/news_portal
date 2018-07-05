@@ -1,25 +1,28 @@
 .page {
+  &__header{
+    margin-top: $indent-xl;
+    margin-bottom: $indent-xl;
+    align-items: baseline;
+  }
 	&__title {
 		padding: $indent-m 0;
-    margin-bottom: $indent-xl;
-    display: flex;
-    justify-content: center;
-    .react-toggle--checked .react-toggle-track {
-      &, &:hover{
-        &:not(.disabled){
-          background-color: $c-error;
-        }
-      }
-    }
-		h1 {
-			text-align: center;
-		}
 	}
-  &__toggle{
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    flex-direction: column;
-    font-size: 20px;
-  }
 }
+
+
+.form{
+  &__item{
+    &:not(:last-child){
+      margin-bottom: 50px;
+    }
+    .ant-form-explain, .ant-form-extra {
+      position: absolute;
+    }
+    .ant-row.ant-form-item {
+      margin-bottom: 0;
+    }
+  }
+
+
+}
+
